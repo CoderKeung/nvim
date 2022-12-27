@@ -1,0 +1,66 @@
+local CONFIG = {}
+
+CONFIG.options = {
+  completeopt    = "menuone,noinsert,noselect",
+  sw             = 2,
+  tabstop        = 2,
+  softtabstop    = 2,
+  shiftwidth     = 2,
+  expandtab      = true,
+  number         = true,
+  relativenumber = true,
+  termguicolors  = true,
+  clipboard      = "unnamedplus",
+  showmode       = false,
+  updatetime     = 300,
+  undofile       = true,
+  fillchars      = "vert:▏",
+  cmdheight      = 0,
+  laststatus     = 2,
+  guifont        = "FiraCode Nerd Font:h15",
+}
+
+CONFIG.keymaps  = {
+  {"n", "E", "<cmd>q!<CR>", {noremap = true, silent = true}},
+  {"n", "Q", "<cmd>wq!<CR>", {noremap = true, silent = true}},
+  {"n", "S", "<cmd>w!<CR>", {noremap = true, silent = true}},
+  {"n", "<Tab>", "<C-w>w", {noremap = true, silent = true}},
+  {"n", "<C-h>", "<C-w><", {noremap = true, silent = true}},
+  {"n", "<C-l>", "<C-w>>", {noremap = true, silent = true}},
+  {"n", "<C-k>", "<C-w>+", {noremap = true, silent = true}},
+  {"n", "<C-j>", "<C-w>-", {noremap = true, silent = true}},
+  {"n", "t", "<cmd>NvimTreeToggle<CR>", {noremap = true, silent = true}},
+}
+
+CONFIG.globalVar = {
+  loaded_gzip              = 1,
+  loaded_tar               = 1,
+  loaded_tarPlugin         = 1,
+  loaded_zip               = 1,
+  loaded_zipPlugin         = 1,
+  loaded_getscript         = 1,
+  loaded_getscriptPlugin   = 1,
+  loaded_vimball           = 1,
+  loaded_vimballPlugin     = 1,
+  loaded_matchit           = 1,
+  loaded_matchparen        = 1,
+  loaded_2html_plugin      = 1,
+  loaded_logiPat           = 1,
+  loaded_rrhelper          = 1,
+  loaded_netrw             = 1,
+  loaded_netrwPlugin       = 1,
+  loaded_netrwSettings     = 1,
+  loaded_netrwFileHandlers = 1,
+  python_host_skip_check   = 1,
+  python3_host_skip_check  = 1,
+  python_host_prog         = "/usr/local/bin/python",
+  python3_host_prog        = "/usr/local/bin/python3",
+  did_load_filetypes       = 1,
+  neovide_cursor_animation_length = 0.05,
+  neovide_cursor_antialiasing = true,
+  neovide_cursor_vfx_mode = "railgun",
+  neovide_cursor_vfx_particle_density = 20.0,
+  indent_blankline_char = "┃",
+}
+
+return CONFIG
