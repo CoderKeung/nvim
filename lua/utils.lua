@@ -18,4 +18,28 @@ function UTILS.setGlobalVar(tab)
   end
 end
 
+function UTILS.installLazy()
+  local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+  if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+      "git",
+      "clone",
+      "--filter=blob:none",
+      "--single-branch",
+      "https://github.com/folke/lazy.nvim.git",
+      lazypath,
+    })
+  end
+  vim.opt.runtimepath:prepend(lazypath)
+end
+
+function UTILS.loadLazy(tab)
+  local lazyPlugins = {}
+  for repoName, _ in pairs(tab) do
+    tab[repoName][1] = repoName
+    lazyPlugins[#lazyPlugins + 1] = tab[repoName]
+  end
+  require("lazy").setup(lazyPlugins)
+end
+
 return UTILS

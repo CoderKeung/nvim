@@ -29,7 +29,13 @@ CONFIG.keymaps  = {
   {"n", "<C-l>", "<C-w>>", {noremap = true, silent = true}},
   {"n", "<C-k>", "<C-w>+", {noremap = true, silent = true}},
   {"n", "<C-j>", "<C-w>-", {noremap = true, silent = true}},
+  {"n", "K", "<C-b>", {noremap = true, silent = true}},
+  {"n", "J", "<C-f>", {noremap = true, silent = true}},
   {"n", "t", "<cmd>NvimTreeToggle<CR>", {noremap = true, silent = true}},
+  {"n", "<C-f>", "<cmd>Telescope find_files<CR>", {noremap = true, silent = true}},
+  {"n", "F", "<cmd>lua require('custom').findPackage()<CR>", {noremap = true, silent = true}},
+  {"n", "<M-p>", "<cmd>ToggleTerm<CR>", {noremap = true, silent = true}},
+  {"t", "<M-p>", "<cmd>ToggleTerm<CR>", {noremap = true, silent = true}},
 }
 
 CONFIG.globalVar = {
@@ -61,6 +67,86 @@ CONFIG.globalVar = {
   neovide_cursor_vfx_mode = "railgun",
   neovide_cursor_vfx_particle_density = 20.0,
   indent_blankline_char = "┃",
+  vsnip_snippet_dir = vim.fn.stdpath("config") .. "/vsnip",
+  neovide_input_macos_alt_is_meta = true,
+}
+
+CONFIG.plugins = {
+  ["nathom/filetype.nvim"] = {
+    config = function() require("plugin.ui").filetype() end
+  },
+  ["nvim-tree/nvim-web-devicons"] = {
+    module = "nvim-web-devicons"
+  },
+  ["nvim-lua/plenary.nvim"] = {
+    module = "plenary"
+  },
+  ["folke/tokyonight.nvim"] = {
+    config = function() require("plugin.ui").tokyonight() end
+  },
+  ["nvim-lualine/lualine.nvim"] = {
+    config = function() require("plugin.ui").lualine() end
+  },
+  ["nvim-tree/nvim-tree.lua"] = {
+    cmd = {"NvimTreeToggle", "NvimTreeOpen"},
+    config = function() require("plugin.tool").nvimTree() end,
+  },
+  ["lukas-reineke/indent-blankline.nvim"] = {
+    event = {"BufRead"},
+    config =  function() require("plugin.tool").indent() end,
+  },
+  ["nvim-treesitter/nvim-treesitter"] = {
+    run = ":TSUpdate",
+    event = "BufRead",
+    config = function() require("plugin.tool").treeSitter() end,
+  },
+  ["norcalli/nvim-colorizer.lua"] = {
+    cmd = "ColorizerToggle",
+    config = function() require("plugin.tool").colorizer() end,
+  },
+  ["lewis6991/gitsigns.nvim"] = {
+    event = {"BufRead", "BufNewFile"},
+    config = function() require("plugin.tool").gitsigns() end
+  },
+  ["folke/neodev.nvim"] = {
+    module = "neodev"
+  },
+  ["neovim/nvim-lspconfig"] = {
+  dependencies = {
+      {"hrsh7th/cmp-nvim-lsp", module = "cmp_nvim_lsp"},
+      {"hrsh7th/nvim-cmp", event = {"InsertEnter","CmdlineEnter"}, config = function() require("plugin.code").cmp() end },
+      {"hrsh7th/cmp-buffer", after = "nvim-cmp"},
+      {"hrsh7th/cmp-path", after = "nvim-cmp"},
+      {"hrsh7th/cmp-cmdline", after = "nvim-cmp"},
+      {"hrsh7th/cmp-vsnip", after = "nvim-cmp", event = "InsertCharPre"},
+      {"hrsh7th/vim-vsnip", after = "nvim-cmp", event = "InsertCharPre"},
+    },
+    event = {"BufReadPre", "BufNewFile"},
+    module = "lspconfig",
+    config = function() require("plugin.code").lsp() end,
+  },
+  ["williamboman/mason.nvim"] = {
+    cmd = {"Mason", "MasonInstall"},
+    config = function() require("plugin.code").mason() end,
+  },
+  ["folke/trouble.nvim"] = {
+    cmd = {"Trouble"},
+    config = function() require("plugin.code").trouble() end,
+  },
+  ["nvim-telescope/telescope.nvim"] = {
+    cmd = {"Telescope" },
+    module = "telescope",
+    config = function() require("plugin.tool").telescope() end
+  },
+  ["akinsho/toggleterm.nvim"] = {
+    module = "toggleterm",
+    cmd = {"ToggleTerm"},
+    config = function() require("plugin.tool").toggleterm() end
+  },
+  ["KadoBOT/nvim-spotify"] = {
+    config = function() require("plugin.tool").spotify() end,
+    build = "make",
+  }
 }
 
 return CONFIG
