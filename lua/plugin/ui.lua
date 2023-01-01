@@ -134,7 +134,7 @@ ui.lualine = function()
   spotify.status:start()
 
   insLeft { function()
-    return "%#CK_spotifyInfo#" .." ".. spotify.info
+    return "%#CK_spotifyInfo#" .." 玲"..spotify.info.status.." 怜".. spotify.info.text .." ".. spotify.info.progress
   end,
   pdding = 0,
   }

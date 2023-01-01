@@ -40,6 +40,11 @@ CONFIG.keymaps  = {
   {"n", "<M-2>", "<cmd>2ToggleTerm<CR>", {noremap = true, silent = true}},
   {"n", "<M-l>", "<cmd>lua require('custom').term.lazygit()<CR>", {noremap = true, silent = true}},
   {"n", "<M-j>", "<cmd>lua require('custom').term.jless()<CR>", {noremap = true, silent = true}},
+  -- Spotify Keymaps
+  {"n", "<M-s>=", "<cmd>lua require('custom').spotify.status:next()<CR>", {noremap = true, silent = true}},
+  {"n", "<M-s>-", "<cmd>lua require('custom').spotify.status:prev()<CR>", {noremap = true, silent = true}},
+  {"n", "<M-s>p", "<cmd>lua require('custom').spotify.status:stop()<CR>", {noremap = true, silent = true}},
+  {"n", "<M-s>o", "<cmd>lua require('custom').spotify.status:play()<CR>", {noremap = true, silent = true}},
 }
 
 CONFIG.globalVar = {

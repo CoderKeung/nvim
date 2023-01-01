@@ -85,3 +85,6 @@ set_hl(0, "TelescopeBorder", { fg = colors.teal, bg = colors.bg })
 set_hl(0, "TelescopeNormal", { bg = colors.bg })
 
 set_hl(0, "CK_spotifyInfo", { fg = colors.green1, bg = colors.bg_dark })
+set_hl(0, "CK_spotifyProgreePlayed", { fg = colors.teal, bg = colors.bg_dark })
+set_hl(0, "CK_spotifyProgreeNoplay", { fg = colors.teal, bg = colors.bg_dark })
+set_hl(0, "CK_spotifyProgreeNow", { fg = colors.teal, bg = colors.bg_dark })
