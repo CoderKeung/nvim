@@ -46,6 +46,14 @@ code.lsp = function()
     on_attach = on_attach,
     root_dir = require("lspconfig").util.root_pattern("deno.json", "deno.jsonc"),
   })
+  lspconfig.tsserver.setup{
+    root_dir = require("lspconfig").util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+  }
+  lspconfig.emmet_ls.setup{}
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  lspconfig.html.setup {
+    capabilities = capabilities,
+  }
 end
 
 code.cmp = function()
@@ -193,6 +201,15 @@ code.trouble = function()
         other = "ﯯ"
     },
     use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
+  })
+end
+
+code.webtool = function()
+  require'web-tools'.setup({
+    keymaps = {
+      rename = nil,  -- by default use same setup of lspconfig
+      repeat_rename = '.', -- . to repeat
+    },
   })
 end
 

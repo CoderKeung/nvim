@@ -32,4 +32,35 @@ function spotify.status:event(data)
   spotify.info = getContent(data[3]) .. "-" .. getContent(data[2])
 end
 
-return { M = M, spotify = spotify}
+local term = {}
+
+term.lazygit = function()
+  local Term = require('toggleterm.terminal').Terminal
+  Term:new({
+    cmd = "lazygit",
+    dir = "git_dir",
+    direction = "float",
+    float_opts = {
+      border = {"┏", "━", "┓", "┃", "┛", "━", "┗", "┃"},
+      width = 150,
+      height = 20,
+      winblend = 0,
+      highlights = {
+        border = "Normal",
+        background = "Normal"
+      }
+    },
+    count = 1,
+  }):toggle()
+end
+
+term.jless = function()
+  local Term = require('toggleterm.terminal').Terminal
+  Term:new({
+    cmd = "jless".." "..vim.fn.expand("%"),
+    direction = "horizontal",
+    count = 2,
+  }):toggle(vim.o.lines * 0.5)
+end
+
+return { M = M, spotify = spotify, term = term }
