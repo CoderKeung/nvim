@@ -22,8 +22,9 @@ end
 
 function spotify.status:start()
   local timer = vim.loop.new_timer()
+  local spotifyc = vim.fn.stdpath("config").."/tools/spotify"
   timer:start(1000, 10000, vim.schedule_wrap(function()
-    local cmd = "spotify info"
+    local cmd =  spotifyc.." ".."info"
     vim.fn.jobstart(cmd, { on_stdout = self.event, stdout_buffered = true })
   end))
 end
