@@ -98,16 +98,6 @@ tool.toggleterm = function()
     hide_numbers = true,
     direction = "horizontal",
     shell = vim.o.shell,
-    float_opts = {
-      border = {"┏", "━", "┓", "┃", "┛", "━", "┗", "┃"},
-      width = 150,
-      height = 20,
-      winblend = 0,
-      highlights = {
-        border = "Normal",
-        background = "Normal"
-      }
-    }
   }
 end
 

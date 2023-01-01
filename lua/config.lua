@@ -36,6 +36,10 @@ CONFIG.keymaps  = {
   {"n", "F", "<cmd>lua require('custom').findPackage()<CR>", {noremap = true, silent = true}},
   {"n", "<M-p>", "<cmd>ToggleTerm<CR>", {noremap = true, silent = true}},
   {"t", "<M-p>", "<cmd>ToggleTerm<CR>", {noremap = true, silent = true}},
+  {"n", "<M-1>", "<cmd>1ToggleTerm<CR>", {noremap = true, silent = true}},
+  {"n", "<M-2>", "<cmd>2ToggleTerm<CR>", {noremap = true, silent = true}},
+  {"n", "<M-l>", "<cmd>lua require('custom').term.lazygit()<CR>", {noremap = true, silent = true}},
+  {"n", "<M-j>", "<cmd>lua require('custom').term.jless()<CR>", {noremap = true, silent = true}},
 }
 
 CONFIG.globalVar = {
@@ -146,6 +150,10 @@ CONFIG.plugins = {
   ["KadoBOT/nvim-spotify"] = {
     config = function() require("plugin.tool").spotify() end,
     build = "make",
+  },
+  ["ray-x/web-tools.nvim"] = {
+    cmd = {"BrowserSync", "BrowserOpen"},
+    config = function() require("plugin.code").webtool() end
   }
 }
 
