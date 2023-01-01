@@ -56,7 +56,7 @@ ui.lualine = function()
       always_divide_middle = true,
       globalstatus = false,
       refresh = {
-        statusline = 1000,
+        statusline = 100,
         tabline = 1000,
         winbar = 1000,
       }
@@ -108,6 +108,8 @@ ui.lualine = function()
           return (vim.o.columns > 100 and "%#CK_lspStatus#" .. " " .. client.name .. " ") or ""
         end
       end
+    else
+      return ""
     end
   end,
     padding = 0,
@@ -131,12 +133,13 @@ ui.lualine = function()
   }
 
   local spotify = require("custom").spotify
+  spotify.status.progress = false
   spotify.status:start()
 
   insLeft { function()
-    return "%#CK_spotifyInfo#" .." 玲"..spotify.info.status.." 怜".. spotify.info.text .." ".. spotify.info.progress
+    return "%#CK_spotifyInfo#" .." 玲"..spotify.info.status.." 怜"..spotify.info.text..spotify.info.flowString
   end,
-  pdding = 0,
+    pdding = 0,
   }
 
   insRight { function()

@@ -11,14 +11,22 @@ function M.findPackage()
 end
 
 local spotify = {
-  status = {},
+  status = {
+    progreess = true,
+    text = true,
+    flow = true,
+  },
   icons = {played = "%#CK_spotifyProgreePlayed#ﱢ", now = "%#CK_spotifyProgreeNow#﮸", noplay = "%#CK_spotifyProgreeNoplay#ﱡ", playing = "", paused = ""},
+  flowIcons = {"▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"},
+  flowNumber = {8217, 8726, 1821, 6381, 1872, 2873, 3847},
+  step = 1,
   spotifyc = vim.fn.stdpath("config").."/tools/spotify",
   info = {
     text = "",
-    total = 0,
     status = "",
+    total = 0,
     now = 0,
+    flowString = "",
     progress = "",
   },
 }
@@ -53,6 +61,23 @@ local getContent = function(str)
   return str
 end
 
+local getFlowNumer = function(num) 
+  local flowNumber = {}
+  local step = 1000
+  for i = 1, 4, 1 do
+    flowNumber[i] = math.floor(num/step) % 10
+    step = step / 10
+  end
+  return flowNumber
+end
+local setFlowString = function(flowNumber)
+  local flowString = ""
+  for _, v in pairs(flowNumber) do
+    flowString = flowString .. spotify.flowIcons[v]
+  end
+  return " "..flowString.." "
+end
+
 function spotify.status:info()
   local cmd = spotify.spotifyc.." ".."info"
   vim.fn.jobstart(cmd, { on_stdout = spotify.status.event, stdout_buffered = true })
@@ -72,13 +97,37 @@ function spotify.status:progreeEvent(data)
 end
 
 function spotify.status:start()
-  local timer = vim.loop.new_timer()
-  local progressTimer = vim.loop.new_timer()
-  timer:start(1000, 10000, vim.schedule_wrap(function()spotify.status:info()end))
-  progressTimer:start(1000, 1000, vim.schedule_wrap(function()
-    local cmd = spotify.spotifyc.." ".."info"
-    vim.fn.jobstart(cmd, { on_stdout = spotify.status.progreeEvent, stdout_buffered = true })
-  end))
+  if spotify.status.progress then
+    local progressTimer = vim.loop.new_timer()
+    progressTimer:start(1000, 1000, vim.schedule_wrap(function()
+      local cmd = spotify.spotifyc.." ".."info"
+      vim.fn.jobstart(cmd, { on_stdout = spotify.status.progreeEvent, stdout_buffered = true })
+    end))
+  end
+  if spotify.status.flow then
+    local flowTimer = vim.loop.new_timer()
+    flowTimer:start(1000, 100, vim.schedule_wrap(function()
+      spotify.info.flowString = setFlowString(getFlowNumer(spotify.flowNumber[spotify.step]))
+      if spotify.info.status == spotify.icons.playing then
+        spotify.step = spotify.step + 1
+      end
+      if spotify.step == #spotify.flowNumber then
+        spotify.step = 1
+      end
+    end))
+  end
+  if spotify.status.text then
+    local timer = vim.loop.new_timer()
+    timer:start(1000, 10000, vim.schedule_wrap(function()spotify.status:info()end))
+  end
+end
+
+function spotify.status:listen(...)
+  local str = "%#CK_spotifyInfo#" .." 玲"..spotify.info.status.." 怜"
+  for _, v in pairs({...}) do
+    str = str..spotify.info[v]
+  end
+  return str
 end
 
 function spotify.status:next()
