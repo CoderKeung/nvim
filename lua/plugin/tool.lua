@@ -14,6 +14,7 @@ tool.nvimTree = function()
         list = {},
       },
     },
+    sync_root_with_cwd = true,
   })
 end
 

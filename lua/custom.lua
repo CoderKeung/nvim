@@ -99,14 +99,14 @@ end
 function spotify.status:start()
   if spotify.status.progress then
     local progressTimer = vim.loop.new_timer()
-    progressTimer:start(1000, 1000, vim.schedule_wrap(function()
+    progressTimer:start(100, 1000, vim.schedule_wrap(function()
       local cmd = spotify.spotifyc.." ".."info"
       vim.fn.jobstart(cmd, { on_stdout = spotify.status.progreeEvent, stdout_buffered = true })
     end))
   end
   if spotify.status.flow then
     local flowTimer = vim.loop.new_timer()
-    flowTimer:start(1000, 100, vim.schedule_wrap(function()
+    flowTimer:start(100, 100, vim.schedule_wrap(function()
       spotify.info.flowString = setFlowString(getFlowNumer(spotify.flowNumber[spotify.step]))
       if spotify.info.status == spotify.icons.playing then
         spotify.step = spotify.step + 1
@@ -118,7 +118,7 @@ function spotify.status:start()
   end
   if spotify.status.text then
     local timer = vim.loop.new_timer()
-    timer:start(1000, 10000, vim.schedule_wrap(function()spotify.status:info()end))
+    timer:start(100, 10000, vim.schedule_wrap(function()spotify.status:info()end))
   end
 end
 
@@ -146,7 +146,7 @@ function spotify.status:play()
   local cmd = spotify.spotifyc.." ".."play"
   vim.fn.jobstart(cmd, { on_stdout = spotify.status.info, stdout_buffered = true })
 end
-
+vim.api.nvim_win_get_cursor(0)
 local term = {}
 
 term.lazygit = function()

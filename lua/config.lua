@@ -32,10 +32,12 @@ CONFIG.keymaps  = {
   {"n", "K", "<C-b>", {noremap = true, silent = true}},
   {"n", "J", "<C-f>", {noremap = true, silent = true}},
   {"n", "t", "<cmd>NvimTreeToggle<CR>", {noremap = true, silent = true}},
+  -- Telescope Keymaps
   {"n", "<C-f>", "<cmd>Telescope find_files<CR>", {noremap = true, silent = true}},
-  {"n", "F", "<cmd>lua require('custom').findPackage()<CR>", {noremap = true, silent = true}},
-  {"n", "<M-p>", "<cmd>ToggleTerm<CR>", {noremap = true, silent = true}},
-  {"t", "<M-p>", "<cmd>ToggleTerm<CR>", {noremap = true, silent = true}},
+  {"n", "F", "<cmd>lua require('custom').M.findPackage()<CR>", {noremap = true, silent = true}},
+  -- ToggleTerm Keymaps
+  {"n", "<M-i>", "<cmd>ToggleTerm<CR>", {noremap = true, silent = true}},
+  {"t", "<M-i>", "<cmd>ToggleTerm<CR>", {noremap = true, silent = true}},
   {"n", "<M-1>", "<cmd>1ToggleTerm<CR>", {noremap = true, silent = true}},
   {"n", "<M-2>", "<cmd>2ToggleTerm<CR>", {noremap = true, silent = true}},
   {"n", "<M-l>", "<cmd>lua require('custom').term.lazygit()<CR>", {noremap = true, silent = true}},
@@ -45,6 +47,13 @@ CONFIG.keymaps  = {
   {"n", "<M-s>-", "<cmd>lua require('custom').spotify.status:prev()<CR>", {noremap = true, silent = true}},
   {"n", "<M-s>p", "<cmd>lua require('custom').spotify.status:stop()<CR>", {noremap = true, silent = true}},
   {"n", "<M-s>o", "<cmd>lua require('custom').spotify.status:play()<CR>", {noremap = true, silent = true}},
+  -- Lspsaga Keymaps
+  {"n", "W", "<cmd>Lspsaga lsp_finder<CR>", {noremap = true, silent = true}},
+  {"n", "U", "<cmd>Lspsaga hover_doc<CR>", {noremap = true, silent = true}},
+  {"n", "A", "<cmd>Lspsaga rename<CR>", {noremap = true, silent = true}},
+  {"n", "N", "<cmd>Lspsaga diagnostic_jump_next<CR>", {noremap = true, silent = true}},
+  {"n", "P", "<cmd>Lspsaga diagnostic_jump_prev<CR>", {noremap = true, silent = true}},
+  {"n", "L", "<cmd>Lspsaga peek_definition<CR>", {noremap = true, silent = true}},
 }
 
 CONFIG.globalVar = {
@@ -133,6 +142,10 @@ CONFIG.plugins = {
     event = {"BufReadPre", "BufNewFile"},
     module = "lspconfig",
     config = function() require("plugin.code").lsp() end,
+  },
+  ["glepnir/lspsaga.nvim"] = {
+    cmd = { "Lspsaga" },
+    config = function() require("plugin.code").lspsaga() end
   },
   ["williamboman/mason.nvim"] = {
     cmd = {"Mason", "MasonInstall"},

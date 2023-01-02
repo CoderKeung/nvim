@@ -84,7 +84,7 @@ code.cmp = function()
           border = "",
           winhighlight = 'Normal:CK_cmpNormal,FloatBorder:CK_cmpBorder,CursorLine:CK_cmpCursor,Search:None',
           scrolloff = 0,
-          col_offset = -3,
+          col_offset = 0,
           side_padding = 0,
           scrollbar = false,
         },
@@ -92,7 +92,7 @@ code.cmp = function()
           max_height = math.floor(WIDE_HEIGHT * (WIDE_HEIGHT / vim.o.lines)),
           max_width = math.floor((WIDE_HEIGHT * 2) * (vim.o.columns / (WIDE_HEIGHT * 2 * 16 / 9))),
           border = "single",
-          side_padding = 2,
+          side_padding = 0,
           winhighlight = 'FloatBorder:CK_cmpDocumentBorder,Normal:CK_cmpDocumentNormal',
         },
       },
@@ -136,9 +136,22 @@ code.cmp = function()
           {name = "buffer"},
           {name = "path"}
         }
-      )
+      ),
     }
   )
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      {
+        name = 'cmdline',
+        option = {
+          ignore_cmds = { 'Man', '!' }
+        }
+      }
+    })
+  })
 end
 
 code.mason = function()
@@ -201,6 +214,12 @@ code.trouble = function()
         other = "ﯯ"
     },
     use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
+  })
+end
+
+code.lspsaga = function()
+  require("lspsaga").init_lsp_saga({
+    border_style = "bold",
   })
 end
 
