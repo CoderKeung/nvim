@@ -49,7 +49,7 @@ ui.lualine = function()
       component_separators = {},
       section_separators = {},
       disabled_filetypes = {
-        statusline = {"NvimTree"},
+        statusline = {"NvimTree", "DiffviewFiles"},
         winbar = {},
       },
       ignore_focus = {},

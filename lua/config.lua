@@ -54,6 +54,10 @@ CONFIG.keymaps  = {
   {"n", "N", "<cmd>Lspsaga diagnostic_jump_next<CR>", {noremap = true, silent = true}},
   {"n", "P", "<cmd>Lspsaga diagnostic_jump_prev<CR>", {noremap = true, silent = true}},
   {"n", "L", "<cmd>Lspsaga peek_definition<CR>", {noremap = true, silent = true}},
+  -- Diffview Keymaps
+  {"n", "D", "<cmd>DiffviewOpen<CR>", {noremap = true, silent = true}},
+  {"n", "H", "<cmd>DiffviewFileHistory<CR>", {noremap = true, silent = true}},
+  {"n", "C", "<cmd>DiffviewClose<CR>", {noremap = true, silent = true}},
 }
 
 CONFIG.globalVar = {
@@ -172,6 +176,10 @@ CONFIG.plugins = {
   ["ray-x/web-tools.nvim"] = {
     cmd = {"BrowserSync", "BrowserOpen"},
     config = function() require("plugin.code").webtool() end
+  },
+  ["sindrets/diffview.nvim"] = {
+    cmd = {"DiffviewOpen"},
+    config = function() require("plugin.tool").diffview() end
   }
 }
 
