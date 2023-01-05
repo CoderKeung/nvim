@@ -33,8 +33,10 @@ tool.indent = function()
 end
 
 tool.treeSitter = function()
+  local ft_to_parser = require"nvim-treesitter.parsers".filetype_to_parsername
+  ft_to_parser.ejs = "html"
   require'nvim-treesitter.configs'.setup {
-    ensure_installed = {"help", "vim", "c", "lua", "javascript", "typescript" },
+    ensure_installed = {"help", "vim", "c", "lua", "javascript", "typescript", "html" },
     sync_install = false,
     auto_install = true,
     ignore_install = {},

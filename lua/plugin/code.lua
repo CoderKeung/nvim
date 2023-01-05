@@ -42,11 +42,8 @@ code.lsp = function()
       }
     }
   })
-  lspconfig.denols.setup({
-    on_attach = on_attach,
-    root_dir = require("lspconfig").util.root_pattern("deno.json", "deno.jsonc"),
-  })
   lspconfig.tsserver.setup{
+    on_attach = on_attach,
     root_dir = require("lspconfig").util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
   }
   lspconfig.emmet_ls.setup{}
