@@ -44,12 +44,22 @@ code.lsp = function()
   })
   lspconfig.tsserver.setup{
     on_attach = on_attach,
-    root_dir = require("lspconfig").util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+    capabilities = capabilities,
+    init_options = {
+      preferences = {
+        disableSuggestions = true,
+      },
+    },
   }
   lspconfig.emmet_ls.setup{}
+  lspconfig.tailwindcss.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+  }
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   lspconfig.html.setup {
     capabilities = capabilities,
+    on_attach = on_attach
   }
 end
 
